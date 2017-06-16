@@ -8,7 +8,7 @@ app.get('/tecnologia',function(req,res){
 });
 
 
-app.listen(3000, function(){
+app.listen(80, function(){
 
   console.log("Servidor rodando na porta 3000");
 
