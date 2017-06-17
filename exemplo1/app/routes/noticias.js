@@ -6,7 +6,9 @@ module.exports =function(app){
 
     connection.query("select * from noticias", function(error,result){
         console.log(result.rowCount + ' rows were received');
-        res.render(result);
+        var json = JSON.stringify(result.rows, null, "    ");
+        console.log(json);
+        res.render(json);
     });
 
     //res.render("noticias/noticias");
