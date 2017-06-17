@@ -7,8 +7,8 @@ module.exports =function(app){
     connection.query("select * from noticias", function(error,result){
         console.log(result.rowCount + ' rows were received');
         var json = JSON.stringify(result.rows, null, "    ");
-        console.log(json);
-        res.render(json);
+        console.log("json retorno "+json);
+        res.send(json);
     });
 
     //res.render("noticias/noticias");
