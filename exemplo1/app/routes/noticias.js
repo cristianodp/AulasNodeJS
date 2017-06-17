@@ -5,7 +5,8 @@ module.exports =function(app){
     const connection = dbConnection();
 
     connection.query("select * from noticias", function(error,result){
-        res.send(result);
+        //res.send(result.rows);
+        res.render("noticias/noticias", {noticias :result.rows});
         /*console.log(result.rowCount + ' rows were received');
         var json = JSON.stringify(result.rows, null, "    ");
         console.log("json retorno "+json);
