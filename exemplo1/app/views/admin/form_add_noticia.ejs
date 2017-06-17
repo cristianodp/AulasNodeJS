@@ -2,11 +2,23 @@
 	<html lang="pt-br">
 		<head>
 			<meta charset="utf-8"/>
-			<title>Formul�rio de cadastro de Not�cia</title>
+			<title>Formulário de cadastro de Notícia</title>
 		</head>
 	<body>
 
-		<h1>Adicionar not�cia</h1>
+		<h1>Adicionar notícia</h1>
+
+		<br>
+
+		<form class="" action="/noticias/salvar" method="post">
+			<label>Titulo</label>
+			<input type="text" id="titulo" name="titulo" value="" placeholder="Título da notícia"/>
+			<br>
+			<label>Notícia</label>
+			<textarea name="noticia" id=""noticia"" rows="8" cols="80"></textarea>
+			<br>
+			<input type="submit"value="Enviar">
+		</form>
 
 	</body>
 </html>

@@ -1,9 +1,12 @@
-module.exports = function(app){
-  app.get('/noticia',function(req,res){
-    var connection = app.config.dbConnection();
+module.exports = function(context){
+  context.get('/noticia',function(req,res){
+    const connection = context.config.dbConnection();
 
-    connection.query('select * from noticias where id_noticia = 2', function(error, result){
-      res.render('noticias/noticia', {noticias : result.rows});
+    var models = context.app.models;
+    var noticiasModel = models.noticiasModel;
+
+    noticiasModel.getNoticia(2,connection, function(error,result){
+      res.render("noticias/noticia", { noticias : result });
     });
 
   });

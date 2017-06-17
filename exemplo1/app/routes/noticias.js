@@ -1,18 +1,15 @@
-//var dbConnection = require("../../config/dbConnection");
-module.exports = function(app){
-  app.get('/noticias',function(req,res){
+module.exports = function(context){
 
+  context.get('/noticias',function(req,res){
 
-    const connection = app.config.dbConnection();
+    const connection = context.config.dbConnection();
+    var models = context.app.models;
 
-    connection.query("select * from noticias", function(error,result){
+    var noticiasModel = models.noticiasModel;
 
-      var json = JSON.stringify(result.rows, null, "    ");
-      console.log(json);
-      res.render("noticias/noticias", { noticias : result.rows });
-
+    noticiasModel.getNoticias(connection, function(error,result){
+      res.render("noticias/noticias", { noticias : result });
     });
 
-    //res.render("noticias/noticias");
   });
 }
