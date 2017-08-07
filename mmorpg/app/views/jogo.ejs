@@ -21,6 +21,7 @@
 				});
 
 				$("#btn_suditos").click(function(){
+					$("#msg").hide();
 					$.ajax({
 						url:"/suditos",
 						method:"get",
@@ -33,18 +34,45 @@
 
 
 				$("#btn_pergaminhos").click(function(){
+					$("#msg_erros").hide();
+					fetch('/pergaminhos', {credentials: 'same-origin'})
+						.then(responseObject => {
+							responseObject.text()
+								.then(function(result){ 
+									console.log(result); 
+									$("#acoes").html(result);
+
+									cronometro();
+								}) 
+							
+						});
+
+					/*
 					$.ajax({
 						url:"/pergaminhos",
 						method:"get",
 						success: function(data){
 							$("#acoes").html(data);
 						}
-					});
+					});*/
 				});
 
 			});
-
-			
+			var timming = null;
+			function cronometro(){
+				$(".tempo_restantes").each(function(){
+					var segundos = $(this).html();
+					var segundos_atuais = parseInt(segundos) - 1;
+					if (segundos_atuais < 0){
+						$(this).parent().remove();
+					}else{
+						$(this).html(segundos_atuais);
+					}
+					
+				});
+				clearTimeout(timming);
+				timming = setTimeout('cronometro()',1000);
+			}
 
 		</script>
 
@@ -61,7 +89,27 @@
 		</nav>
 
 	    <div class="container">
-	    	
+			
+			<% if (msg == 'Erro') { %>
+				<div id="msg" class="alert alert-danger">
+					<strong>Operação inválida! Verifique se todos os campos se tudo foi informado</strong>
+				</div>
+			<% } %>
+
+			<% if (msg == 'Sucesso') { %>
+				<div id="msg" class="alert alert-info">
+					<strong>Ação realiazada com sucesso!</strong>
+				</div>
+			<% } %>
+			
+			<% if (msg == 'Revogada') { %>
+				<div id="msg" class="alert alert-info">
+					<strong>Senhor, sua ordem foi revogada!</strong>
+				</div>
+			<% } %>
+
+			
+
 			<div class="row">
 	    		<div class="col-sm-3 casa">
 					<img src="images/casa_<%=img_casa%>.jpg" />
